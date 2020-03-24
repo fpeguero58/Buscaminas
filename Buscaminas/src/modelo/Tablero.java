@@ -10,6 +10,7 @@ public class Tablero {
 	public Tablero(int lado, int numeroMinas) {
 		super();
 		this.casillero = new Casilla[lado][lado];
+		crearTablero();
 		this.numeroMinas = numeroMinas;
 		colocarMinas();
 	}
@@ -42,6 +43,15 @@ public class Tablero {
 			return true;
 		}
 		return false;
+	}
+
+	private void crearTablero() {
+		for (int i = 0; i < casillero.length; i++) {
+			for (int j = 0; j < casillero[i].length; j++) {
+				casillero[i][j] = new Casilla();
+			}
+		}
+
 	}
 
 	private void colocarMinas() {

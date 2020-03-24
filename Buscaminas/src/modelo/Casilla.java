@@ -2,8 +2,12 @@ package modelo;
 
 public class Casilla {
 
-	private boolean velada, mina, marcada;
-	private int minasAlrededor;
+	private boolean velada = true, mina = false, marcada = false;
+	private int minasAlrededor = 0;
+
+	public Casilla() {
+
+	}
 
 	public boolean isVelada() {
 		return velada;
