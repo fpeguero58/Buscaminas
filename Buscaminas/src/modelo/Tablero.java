@@ -1,55 +1,57 @@
 package modelo;
 
+import utiles.Utiles;
+
 public class Tablero {
 
-	private Dificultad dificultad;
-	private Densidad densidad;
-	private int bombas;
+	private int numeroMinas;
 	private Casilla[][] casillero;
 
-	public Tablero(Dificultad dificultad, Densidad densidad) {
+	public Tablero(int lado, int numeroMinas) {
 		super();
-		this.dificultad = dificultad;
-		this.densidad = densidad;
-		this.casillero = new Casilla[this.getSize()][this.getSize()];
-		this.bombas = calcularBombas();
+		this.casillero = new Casilla[lado][lado];
+		this.numeroMinas = numeroMinas;
+		colocarMinas();
 	}
 
-	public int getBombas() {
-		return bombas;
+	public int getNumeroMinas() {
+		return numeroMinas;
 	}
 
 	public Casilla[][] getCasillero() {
 		return casillero;
 	}
 
-	public int getSize() {
-		return dificultad.getSize();
+	public Casilla getCasilla(Coordenada posicion) {
+		return casillero[posicion.getX()][posicion.getY()];
 	}
 
-	public float getCantidad() {
-		return densidad.getCantidad();
-	}
-
-	public boolean marcarCasilla(Casilla casilla) {
-		if (casilla.isVelada() && !casilla.isMarcada()) {
-			casillero[casilla.getX()][casilla.getY()].setMarcada(true);
+	public boolean marcarCasilla(Coordenada posicion) {
+		if (casillero[posicion.getX()][posicion.getY()].isVelada()
+				&& !casillero[posicion.getX()][posicion.getY()].isMarcada()) {
+			casillero[posicion.getX()][posicion.getY()].setMarcada(true);
 			return true;
 		}
 		return false;
 	}
 
-	public boolean desmarcarCasilla(Casilla casilla) {
-		if (casilla.isVelada() && casilla.isMarcada()) {
-			casillero[casilla.getX()][casilla.getY()].setMarcada(true);
+	public boolean desmarcarCasilla(Coordenada posicion) {
+		if (casillero[posicion.getX()][posicion.getY()].isVelada()
+				&& casillero[posicion.getX()][posicion.getY()].isMarcada()) {
+			casillero[posicion.getX()][posicion.getY()].setMarcada(true);
 			return true;
 		}
 		return false;
 	}
 
-	private int calcularBombas() {
-		int totalCasillas = this.getSize() * this.getSize();
-		return (int) (totalCasillas / this.getCantidad());
+	private void colocarMinas() {
+		int x, y;
+		for (int i = 0; i < this.numeroMinas; i++) {
+			do {
+				x = Utiles.dameNumero(this.casillero.length);
+				y = Utiles.dameNumero(this.casillero.length);
+			} while (this.casillero[x][y].isMina());
+			casillero[x][y].setMina(true);
+		}
 	}
-
 }

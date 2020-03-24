@@ -2,17 +2,8 @@ package modelo;
 
 public class Casilla {
 
-	private Coordenada coordenada;
 	private boolean velada, mina, marcada;
 	private int minasAlrededor;
-
-	public int getX() {
-		return coordenada.getX();
-	}
-
-	public int getY() {
-		return coordenada.getY();
-	}
 
 	public boolean isVelada() {
 		return velada;
